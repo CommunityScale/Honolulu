@@ -627,7 +627,7 @@ a:hover {
   /* For Safari */
   position: sticky;
   top: 0;
-  background-color: #252C31; 
+  background-color: #487ca4; 
   color: #FFFFFF;
   /* Dark background for visibility */
   padding: 5px;
@@ -815,7 +815,7 @@ input[type="submit"].button-primary:focus,
 input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
   color: #FFF;
-  background-color: #234361;
+  background-color: #487ca4;
   border-color: #234361;
 }
 

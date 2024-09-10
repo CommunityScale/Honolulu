@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+	
+<!-- Google tag (gtag.js) for github dashboards -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-56575F4C50"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-56575F4C50');
+</script>
 
 	<!-- Metadata 2024 -->
 	<meta charset="utf-8">
@@ -13,9 +22,7 @@
 	<meta property="og:title" content="Honolulu Housing Study Dashboard">
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="https://communityscale.github.io/Honolulu/">
-	<!--
 	<meta property="og:image" content="https://raw.githubusercontent.com/CommunityScale/Honolulu/main/images/socialcard.jpg">
-	-->
 	<meta property="og:description" content="Housing Study educational dashboard for Honolulu. Provides detailed analysis and insights on housing trends, affordability, and needs.">
 	<meta property="og:site_name" content="CommunityScale">
 	<meta property="og:locale" content="en_US">
@@ -26,24 +33,30 @@
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Honolulu Housing Study Dashboard">
 	<meta name="twitter:description" content="Interactive dashboard providing insights into Honolulu's housing needs. Explore data on affordability, availability, and trends.">
-	<!--
 	<meta name="twitter:image" content="https://raw.githubusercontent.com/CommunityScale/Honolulu/main/images/socialcard.jpg">
-	-->
 	<meta name="twitter:creator" content="@CommunityScale">
 	<meta http-equiv="content-language" content="en">
 
-	<!-- Mobile Specific Metassssssssss
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+	<!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/cs.css">
+	<link rel="stylesheet" href="css/cs-template.css">
 
 	<!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link rel="icon" type="image/png" href="images/theme/favicon.png">
+
+	<!-- Icon library
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -52,475 +65,451 @@
 	<!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-
-	<!-- Sticky header -->
-	<div class="sticky">
-		<div class="container">
-			<p class="inline-text" style="color: #ffffff;">
-				<a href="https://Honolulu.org/project/housing-planning/" target="_blank"><img src="images/community.png" alt="Honolulu" class="inline-image"></a>
-				<span class="title"><b>Honolulu Housing Plan Map |</b></span><a href="#Overview" style="color: #ffffff;">Overview</a> | <a href="#Indicators" style="color: #ffffff;">Indicators</a> | <a href="#Solutions" style="color: #ffffff;"> Solutions </a>| <a href="#Next steps" style="color: #ffffff;">Next steps</a>
+  <div class="sticky">
+	<div class="topnav">
+		<div class="logo-and-menu">
+			<p class="inline-text">
+				<img src="images/client/client-logo.png" alt="Honolulu" class="inline-logo">
+				<span class="title">Comprehensive Housing Plan</span>
 			</p>
+			<div id="clickDiv">
+				<a class="menu-icon">
+					<i class="fa fa-bars"></i>
+				  </a>
+			</div>
+		</div>
+		<div id="targetDiv" class="">
+			<a href="#Overview">Back to top</a>
+			<a href="#Takeaways">Key takeaways</a>
+			<a href="#Strategies">Strategies</a>
 		</div>
 	</div>
+  </div>
 
+	<script>
+		const clickDiv = document.getElementById("clickDiv");
+		const targetDiv = document.getElementById("targetDiv");
+
+		clickDiv.addEventListener("click", function() {
+			// Toggle the 'expanded' class to handle expansion and collapsing
+			targetDiv.classList.toggle("expanded");
+
+			if (targetDiv.style.height === '0px' || targetDiv.style.height === '') {
+				// Measure the auto height by temporarily setting the div's height to 'auto'
+				const autoHeight = targetDiv.scrollHeight + 'px';
+				
+				// Set height to current computed height
+				targetDiv.style.height = autoHeight;
+
+				// Once the animation is done, set the height to 'auto' to adapt to content changes
+				setTimeout(() => {
+					targetDiv.style.height = 'auto';
+				}, 500); // Match the transition duration
+			} else {
+				// If it's expanded, collapse it
+				targetDiv.style.height = targetDiv.scrollHeight + 'px'; // Set the height to its current scroll height
+				setTimeout(() => {
+					targetDiv.style.height = '0px'; // Shrink back to zero
+				}, 10); // Small delay to allow the previous height setting to take effect
+			}
+		});
+
+		// Add event listener to the links inside targetDiv to remove expanded class and collapse div
+		targetDiv.addEventListener("click", function(event) {
+			if (event.target.tagName === "A") {
+				// Remove the 'expanded' class when a link is clicked
+				targetDiv.classList.remove("expanded");
+
+				// Collapse the div by setting height back to 0
+				targetDiv.style.height = targetDiv.scrollHeight + 'px'; // Set height to its current height
+				setTimeout(() => {
+					targetDiv.style.height = '0px'; // Animate height back to 0
+				}, 10);
+			}
+		});
+	</script>
+  
 	<!-- Cover banner -->
 
-	<div class="cover">
+	<div id="Overview" class="cover">
 		<div class="container" style="margin-top: 0">
-			<h1>County & City of Honolulu
-				<br>Comprehensive Housing Plan Dashboard
+			<h1>City and Couty of Honolulu
+				<br>Comprehensive Housing Plan
 			</h1>
+			
+			<div class="row">
+				<div class="nine columns" style="margin-top: 20px">
+					<p>This dashboard was created by <a href="http://communityscale.io">CommunityScale</a> for the City and County of Honolulu <a href="https://www8.honolulu.gov/housing/">Office of Housing</a> to summarize the plan's key findings and recommendations and provide links to the full set of plan documents.</p>
+				</div>
+			</div>
 		</div>
+		
 	</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="six columns" style="margin-top: 20px">
-				<p>This dashboard was created by <a href="http://communityscale.io">CommunityScale</a> for the <a href="https://Honolulu.org/project/housing-planning/">County & City of Honolulu</a>. The objective of this dashboard is to outline the plan's objectives and priorities, share key observations and findings about housing, and introduce possible solutions to increase housing production and address affordability challenges.</p>
-				<p><a href="" target="blank"><button>Executive summary (PDF)</button></a></p>
-				<p><a href="" target="blank"><button>Housing needs assessment (PDF)</button></a></p>
-				<p><a href="" target="blank"><button>Strategies to increase housing production (PDF)</button></a></p>
-				<p><a href="" target="blank"><button>Place-based opportunities analysis (PDF)</button></a></p>
-				<p><a href="" target="blank"><button>Assessment of development barriers (PDF)</button></a></p>
-				<p><a href="" target="blank"><button>Literature review (PDF)</button></a></p>
-				<p><a href="" target="blank"><button>Map atlas (PDF)</button></a></p>
-			</div>
-			<div class="six columns" style="margin-top:20px">
-				<p><img src="./images/Honolulu Comprehensive Housing Plan - Document - Internal.jpg" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
-			</div>
-		</div>
-		<!-- Hide the TOC
-		<div class="row">
-			<div class="one-fifth column"><a href="#Overview"><img src="images/Overview.png" class="icon" title="Overview"><br><b>Overview</b></a>, introducing the purpose of this dashboard.</div>
-			<div class="one-fifth column"><a href="#People"><img src="images/People.png" class="icon" title="People"><br><b>Indicators</b></a>, profiling characteristics such as income, employment, household structure, and cost burden.</div>
-			<div class="one-fifth column"><a href="#Place"><img src="images/Place.png" class="icon" title="Place"><br><b>Solutions</b></a>, to generate new construction that fits with the community's needs.</div>
-			<div class="one-fifth column"><a href="#Demand"><img src="images/Demand.png" class="icon" title="Demand"><br><b>Next steps</b></a>, and how you can get involved.</div>
-		</div>
-		 -->
-	<!-- hiding placeholder KPI panel
-		</div>
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-			<h2>Key performance indicators</h2>
-			<table>
-				<tr>
-					<th>Metric</th>
-					<th>Goal</th>
-					<th>Progress</th>
-				</tr>
-				<tr>
-					<td>Units built</td>
-					<td>12,000</td>
-					<td id="sheet-data-1">Loading data...</td>
-				</tr>
-				<tr>
-					<td>Units permitted</td>
-					<td>3,250</td>
-					<td id="sheet-data-2">Loading data...</td>
-				</tr>
-				<tr>
-					<td>Units in the pipeline (not yet permitted)</td>
-					<td>9,500</td>
-					<td id="sheet-data-3">Loading data...</td>
-				</tr>
-			</table>
-			<script>
-				// Google Sheets API settings
-				const apiKey = 'AIzaSyBk8WURQH2CicuOdwTqbkIaCqg6Qkp1kf4'; // Replace with your actual API key
-		
-				// Reusable function to fetch data
-				async function fetchSheetData(spreadsheetId, range, elementId) {
-					const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
-					
-					try {
-						const response = await fetch(url);
-						if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-						
-						const data = await response.json();
-						const cellValue = data.values ? data.values[0][0] : 'No data found'; // Extract the cell value
-		
-						// Display the data in the specified HTML element
-						document.getElementById(elementId).textContent = cellValue;
-					} catch (error) {
-						console.error('Error fetching data:', error);
-						document.getElementById(elementId).textContent = 'Error fetching data';
-					}
-				}
-		
-				// Call the function for each instance
-				fetchSheetData('1odngQDE2DdwdLLnMQ6isOBdnCYsLevYNMQAmhe8RqyU', 'Sheet1!C2', 'sheet-data-1');
-				fetchSheetData('1odngQDE2DdwdLLnMQ6isOBdnCYsLevYNMQAmhe8RqyU', 'Sheet1!C3', 'sheet-data-2');
-				fetchSheetData('1odngQDE2DdwdLLnMQ6isOBdnCYsLevYNMQAmhe8RqyU', 'Sheet1!C4', 'sheet-data-3');
-			</script>
-			</div>
-		</div>
-		-->
-	</div>
+	<!-- Header row -->
 
-	<!-- Divider row -->
-	<div class="divider">
+	<div class="overview">
 		<div class="container">
-			<div class="Twelve columns">
-				<h2 id="Overview">Overview</h2>
+			<!-- Row with image and text -->
+			<div class="row">
+				<div class="six columns" style="margin-top: 2%">
+					<p><img src="./images/theme/Honolulu Comprehensive Housing Plan - Document - Internal.jpg" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></p>
+				</div>
+				<div class="six columns" style="margin-top: 2%">
+					<h4>The purpose of this plan</h4>
+					<p>The Comprehensive Housing Plan builds on the the Office of Housing’s 2023 Housing Plan with extensive data analysis, stakeholder engagement, policy review, and actionable recommendations to help the City and County of Honolulu achieve its housing goals through 2029 and beyond.</p>
+					<p>This plan is intended to help stakeholders and residents understand the details and nuances of the city’s housing challenge, coordinating with other City departments and governing datasets and metrics to provide a strategic roadmap to unlock opportunities for expanded housing production across the spectrum of affordability - and especially among income levels that have been underserved by current policies and market activity.</p>
+					<p>This website version of the plan highlights key observations and findings. The Plan's Executive Summary is available here, including links to supporting reports from the Comprehensive Housing Plan:</p>
+					<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank"><button>📄 Executive Summary</button></a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="progress-tracker">
+		<div class="container">
+			<div class="row">
+				<div class="twelve columns center-align" style="margin-top: 2%">
+					<p>CURRENT CONDITIONS</p>
+					<h4>What are today's housing affordability indicators?</h4>
+					<p><i>As of September 2024</i></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="boxes">
+					<div class="box">
+						<p class="large-emoji">⚠️</p>
+						<p class="large-number">38%</p>
+						<p>Cost-burdened houeholds</p>
+					</div>
+					<div class="box">
+						<p class="large-emoji">🏠</p>
+						<p class="large-number">$1.07M</p>
+						<p>Median single-family price</p>
+					</div>
+					<div class="box">
+						<p class="large-emoji">🏢</p>
+						<p class="large-number">$522K</p>
+						<p>Median condo price</p>
+					</div>
+					<div class="box">
+						<p class="large-emoji">📆</p>
+						<p class="large-number">$2,653</p>
+						<p>Average monthly rent</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- Header row -->
-
-	<!-- Header row -->
 	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>The challenge</h3>
-				<h5>The shortage of affordable housing on O'ahu is a long-standing, complex issue that the city has faced for decades. </h5>
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h2>The challenge</h2>
+				<h6>The shortage of affordable housing on O'ahu is a long-standing, complex issue that the city has faced for decades.</h6>
 				<p>The lack of housing impacts us as a community. Increasing the supply of housing for all income levels must be considered, as a continuum of need exists, ranging from homeless shelters and permanent supportive housing, to low-income rentals, workforce housing, and single-family homes and condos for those pursuing the American dream of homeownership.</p>
 			</div>
-		</div>
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>The purpose of this plan</h3>
-				<h5>This document builds on the the Office of Housing’s 2023 Housing Plan with extensive data analysis, stakeholder engagement, policy review, and actionable recommendations to help the City and County of Honolulu achieve its housing goals through 2029 and beyond. </h5>
-				<p> This plan is intended to help stakeholders and residents understand the details and nuances of the city’s housing challenge, coordinating with other City departments and governing datasets and metrics to provide a strategic roadmap to unlock opportunities for expanded housing production across the spectrum of affordability - and especially among income levels that have been underserved by current policies and market activity.
-				</p>
+			<div class="six columns" style="margin-top: 2%">
+				<img src="images/theme/Moiliili-McCully_neighborhood_from_the_hotel_(4504941742).jpg" height="auto" width="100%" title="CommunityScale" alt="CommunityScale">
 			</div>
 		</div>
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h5> The Comprehensive Housing Plan builds on the foundational goals and priorities established in the 2023 plan by: </h5>
-				<ul>
-					<li>Projecting household growth and housing demand to help target strategies toward the unit types and income levels where need is increasing fastest.</li>
-					<li>Engaging key stakeholders across disciplines and perspectives to learn from practitioners, test ideas, foster collaboration, and build consensus around promising strategies.</li>
-					<li>Evaluating current and proposed housing policies to improve their effectiveness and impact toward achieving City goals.</li>
-					<li>Introducing new policy concepts and precedent examples from places comparable to Honolulu for City and stakeholder consideration.</li>
-					<li>Providing place-based recommendations to distribute new housing development most appropriately and efficiently across the island, with primary emphasis on TOD districts.</li>
-					<li>Documenting analyses, findings, and recommendations in report and online dashboard formats to help inform and advance the community's housing discourse.</li>
-				</ul>			
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h2>This plan builds on the 2023 report's goals and priorities by:</h2>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p>📈 Projecting household growth and housing demand to help target strategies toward the unit types and income levels where need is increasing fastest.</p>
+				<p>🤝 Engaging key stakeholders across disciplines and perspectives to learn from practitioners, test ideas, foster collaboration, and build consensus around promising strategies.</p>
+				<p>🔬 Evaluating current and proposed housing policies to improve their effectiveness and impact toward achieving City goals.</p>
+				<p>📜 Introducing new policy concepts and precedent examples from places comparable to Honolulu for City and stakeholder consideration.</p>
+				<p>🏙️ Providing place-based recommendations to distribute new housing development most appropriately and efficiently across the island, with primary emphasis on TOD districts.</p>
+				<p>📖 Documenting analyses, findings, and recommendations in report and online dashboard formats to help inform and advance the community's housing discourse.</p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>Key takeaways</h3>
-				<ul>
-					<li>Business-as-usual housing development isn't meeting the needs of Honolulu's existing and growing populations, leading to outmigration of O'ahu's essential workforce.</li>
-					<li>Policy changes are needed to expand housing attainability for households at all income levels.</li>
-					<li>Housing development should be prioritized within and around TOD areas, with more limited, context-appropriate infill in outlying areas.</li>
-				</ul>			
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h2>Access the full Comprehensive Housing Plan:</h2>
+				<p>The sections below summarize the Plan's key analytical findings and policy recommendations. The links at right lead to the full set of reports and documents comprising the plan.</p>
 			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<p><img src="./images/indicators2.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
+			<div class="six columns" style="margin-top: 2%">
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Executive summary</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Housing needs assessment</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Affordable housing development barriers assessment</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Strategies to increase housing production</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Place-based opportunities and constraints</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Literature review</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Map atlas</a></p>
 			</div>
 		</div>
 	</div>
-	<!-- Indicators Divider row -->
-	<div class="divider">
+
+	<!-- People Divider row -->
+	<div class="divider" id="Takeaways" style="background:linear-gradient(to right,rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 0.8)), url(images/theme/takeaways-background.jpg); background-repeat: no-repeat; background-size: cover">
 		<div class="container">
-			<div class="Twelve columns">
-				<h2 id="Indicators">Business-as-usual housing development isn't meeting the needs of Honolulu's existing and growing populations</h2>
+			<div class="twelve columns center-align">
+				<div class="divider-header">
+					<div class="divider-icon">
+						<img src="images/theme/Clipboard.svg" class="inline-image" title="Takeaways">
+					</div>
+					<h2 class="inline-text">Key takeaways</h2>
+				</div>
+				<h5>The following section summarizes the key takeaways from the Comprehensive Housing Plan's analysis.</h5>
+				<div class="chip-container">
+					<a href="#Growth"><button  class="button-primary">Projected growth</button></a>
+					<a href="#Burden"><button  class="button-primary">Cost burden</button></a>
+					<a href="#Homeownership"><button  class="button-primary">Homeownership</button></a>
+					<a href="#Workforce"><button  class="button-primary">Workforce</button></a>
+					<a href="#Migration"><button  class="button-primary">Out-migration</button></a>
+					<a href="#Production"><button  class="button-primary">Production</button></a>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>Much of Honolulu's projected household growth is projected to be concentrated at higher incomes.</h3>
-				<h5>Honolulu is projected to add roughly 11,250 households over the next five years.</h5>
+		<div class="row section">
+			<div class="twelve columns center-align" style="margin-top: 2%">
+				<h3>Business-as-usual housing development isn't meeting the needs of Honolulu's existing and growing populations, leading to outmigration of O'ahu's essential workforce.</h3>
 			</div>
 		</div>
-
-		<!-- Row with image and text -->
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<iframe title="" aria-label="Interactive area chart" id="datawrapper-chart-w85On" src="https://datawrapper.dwcdn.net/w85On/5/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="389" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();
-				</script>
+		<div class="row insight" id="Growth">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Much of Honolulu's projected household growth is projected to be concentrated at higher incomes.</h4>
+				<p>Honolulu’s household population has grown modestly since 2010. In terms of relative income levels, most of the growth has been concentrated among households earning &gt;140% AMI.</p>
+				<p>Looking forward, the fastest growing household income group is &gt;140% AMI, followed by the 80-100% AMI group. The ratio of households below 60% has been decreasing since 2013 and will not result in net new households if trends continue. However, households at lower levels of AMI are cost burdened and new affordable housing would address that need as shown in the following pages.</p>
 			</div>
-			<div class="four columns" style="margin-top: 2%">
-				<p>Honolulu’s household population has grown modestly since 2010. In terms of relative income levels, most of the growth has been concentrated among households earning >140% AMI.
-				</p>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
+			<div class="six columns" style="margin-top: 2%">
+				<iframe title="" aria-label="Interactive area chart" id="datawrapper-chart-w85On" src="https://datawrapper.dwcdn.net/w85On/5/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="389" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();</script>
+				<img src="images/amitable.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale">
+				<figcaption>Top chart: Households by income group.</figcaption>
+				<figcaption>Bottom table: Net new households by income group in 5 years</figcaption>
+				<figcaption>For reference, Honolulu’s median income (HUD) 2024: $120,100.</figcaption>
 			</div>
 		</div>
-
-		<!-- Row with image and text -->
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<h5>Honolulu’s median income (HUD) 2024: $120,100</h5>
-				<p><img src="./images/amitable.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>
+		<div class="row insight" id="Burden">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Households are cost-burdened at all income levels but especially at lower incomes.</h4>
+				<p>In Honolulu, most low-income households are cost burdened. Cost burden is also prevalent at higher incomes, but it does not represent the majority of households earning over 60% AMI.</p>
 			</div>
-			<div class="four columns" style="margin-top: 2%">
-				<p>Looking forward, the fastest growing household income group is >140% AMI, followed by the 80-100% AMI group. The ratio of households below 60% has been decreasing since 2013 and will not result in net new households if trends continue. However, households at lower levels of AMI are cost burdened and new affordable housing would address that need as shown in the following pages.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>Households are cost-burdened at all income levels but especially at lower incomes.</h3>
-				<h5>In Honolulu, most low-income households are cost burdened. Cost burden is also prevalent at higher incomes, but it does not represent the majority of households earning over 60% AMI.</h5>
+			<div class="six columns" style="margin-top: 2%">
+				<iframe title="" aria-label="Stacked Bars" id="datawrapper-chart-JRpJu" src="https://datawrapper.dwcdn.net/JRpJu/1/" scrolling="no" frameborder="0" style="border: none;" width="100%" height="294" data-external="1"></iframe><script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) { var e = document.querySelectorAll("iframe"); for (var t in a.data["datawrapper-height"]) for (var r = 0; r < e.length; r++)if (e[r].contentWindow === a.source) { var i = a.data["datawrapper-height"][t] + "px"; e[r].style.height = i } } })) }();</script>
+				<figcaption>Households are cost burdened when paying more than 30% of their income on housing costs. They are considered severely cost burdened when these costs exceed 50% of their income. For renters, this includes lease rent and utilities. For homeowners, this includes mortgage costs, property taxes, insurance, utilities, and any condo fees.</figcaption>
 			</div>
 		</div>
-
-		<!-- Row with image and text -->
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<iframe title="" aria-label="Stacked Bars" id="datawrapper-chart-JRpJu" src="https://datawrapper.dwcdn.net/JRpJu/1/" scrolling="no" frameborder="0" style="border: none;" width="100%" height="294" data-external="1"></iframe>
-				<script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) { var e = document.querySelectorAll("iframe"); for (var t in a.data["datawrapper-height"]) for (var r = 0; r < e.length; r++)if (e[r].contentWindow === a.source) { var i = a.data["datawrapper-height"][t] + "px"; e[r].style.height = i } } })) }();</script>
+		<div class="row insight" id="Homeownership">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Homeownership is increasingly out of reach.</h4>
+				<p>Median prices for both single-family homes and condos are significantly higher than what a median income household can afford.</p>
 			</div>
-			<div class="four columns" style="margin-top: 2%">
-				<p>Households are cost burdened when paying more than 30% of their income on housing costs. They are considered severely cost burdened when these costs exceed 50% of their income. For renters, this includes lease rent and utilities. For homeowners, this includes mortgage costs, property taxes, insurance, utilities, and any condo fees. 
-				</p>
+			<div class="six columns" style="margin-top: 2%">
+				<iframe title="" aria-label="Interactive line chart" id="datawrapper-chart-wU2ly" src="https://datawrapper.dwcdn.net/wU2ly/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="359" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();</script>
+				<figcaption>This chart compares typical home values with the price affordable to a household earning the median household income. A wider gap means higher barrier to entry for first-time homebuyers and increased risk of displacement for current homeowners. A home is “affordable” if primary ownership costs total less than 30% of a household’s total monthly income. These costs include a range of factors such as: Mortgage interest rate, property tax rate, home insurance, private mortgage insurance, utilities, and condo fees.</figcaption>
 			</div>
 		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>Homeownership is increasingly out of reach.				</h3>
-				<h5>Median prices for both single-family homes and condos are significantly higher than what a median income household can afford.</h5>
-				<p>The chart below compares typical home values with the price affordable to a household earning the median household income. A wider gap means higher barrier to entry for first-time homebuyers and increased risk of displacement for current homeowners.
-					A home is “affordable” if primary ownership costs total less than 30% of a household’s total monthly income. These costs include a range of factors such as: Mortgage interest rate, property tax rate, home insurance, private mortgage insurance, utilities, and condo fees.
-				</p>
+		<div class="row insight" id="Workforce">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Housing options should follow job concentrations.</h4>
+				<p>Job access is a key consideration in determining where to prioritize housing development.</p>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<a href="images/charts/honjobsfordash.png"><img src="images/charts/honjobsfordash.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></a>
+				<figcaption>Each employment sector has its own clusters, though while some sectors are largely concentrated around institutions (such as "eds","meds", and public sector roles), service sector job clusters are more scattered. However, all of Honolulu's 9 districts contain significant employment centers including one or more sectors.</figcaption>
 			</div>
 		</div>
-	</div>
-	<!-- Row with image and text -->
-	<div class="container">
-		<div class="eight columns" style="margin-top: 2%; text-align: center;">
-			<iframe title="" aria-label="Interactive line chart" id="datawrapper-chart-wU2ly" src="https://datawrapper.dwcdn.net/wU2ly/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="359" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();
-			</script>
-		</div>
-		<div class="four columns" style="margin-top: 2%">
-			<p>Affordability is based on the county’s estimated median income. Actual affordability levels for specific properties vary based on variation in the above variables as well as possible additional costs for some units such as condominium fees.
-			</p>
-		</div>
-	</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>The housing needs of O'ahu's workforce are not being met.</h3>
-				<h5>Job access is a key consideration in determining where to prioritize housing development.</h5>
-				<p> Each employment sector has its own clusters, though while some sectors are largely concentrated around institutions (such as "eds","meds", and public sector roles), service sector job clusters are more scattered. </p>
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Much of Honolulu's workforce earns 80-140% AMI.</h4>
+				<p>Many of the occupations comprising the foundation of the economy pay wages that equate to household incomes between 80-140% of AMI. This ranges from a single-earner household making $89,100 (80% AMI for a 2-person household) to a dual-earner household making $175,400 (140% AMI for a 3-person household). Honolulu caps incomes eligible for affordable housing designation at 120% AMI, excluding many dual-earner working class households.</p>
 			</div>
-		</div>
-
-		<!-- Row with image and text -->
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<p><img src="./images/honjobsfordash.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>
-			</div>
-		</div>
-				<div class="row">
-
-		</div>
-
-		<div class="row">
-			<h5>Many essential workers fall within the 80-140% AMI group and need housing affordable at those income levels.</h5>
-			<div class="twelve columns" style="margin-top: 2%">
+			<div class="six columns" style="margin-top: 2%">
 				<iframe title="" aria-label="Range Plot" id="datawrapper-chart-TDGRK" src="https://datawrapper.dwcdn.net/TDGRK/5/" scrolling="no" frameborder="0" style="border: none;" width="100%" height="348" data-external="1"></iframe>
-			</div>
-			<div class="twelve columns" style="margin-top: 2%">
-				<p>The essential workforce is typically within the 60-140% AMI range depending on whether there are one or two income earners in the household. This group is both strained enough by housing costs and mobile enough to leave the island for a lower cost of living. According to IRS data, the average income of Oahu’s approx. 4,000 annual outmigrant households is between 65% and 130% AMI.
-				</p>
+				<figcaption>Much of Honolulu's workforce earns between 80-140% AMI depending on whether there are one or two income earners in the household. This range includes the average income of Oahu’s approximate 4,000 annual outmigrant households.</figcaption>
 			</div>
 		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>Thousands of middle-income households are out-migrating annually.</h3>	
-			</div>
-		</div>
-
-		<!-- Row with image and text -->
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<iframe title="" aria-label="Column Chart" id="datawrapper-chart-jThFu" src="https://datawrapper.dwcdn.net/jThFu/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="384" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();
-				</script>
-			</div>
-			<div class="four columns" style="margin-top: 2%">
+		<div class="row insight" id="Migration">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Thousands of households are out-migrating annually.</h4>
 				<p>Honolulu has lost more households to outmigration than it has gained to inmigration every year since 2015.</p>
 			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<iframe title="" aria-label="Column Chart" id="datawrapper-chart-jThFu" src="https://datawrapper.dwcdn.net/jThFu/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="384" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();</script>				
+			</div>
 		</div>
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Most out-migrating households earn between 60-140% AMI.</h4>
+				<p>Most outgoing households are middle-income, earning between 60% and 140% AMI. Projections based on past trends suggest relatively low growth in these income groups, especially when compared to households earning above 140%. However, these projections have this out-migration trend baked in and assume they will continue. If these households did not leave the island altogether, they would drive substantial middle-income household growth. Building more housing that meets these households’ needs and ability to pay could help stem the tide of out-migration.</p>			
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<iframe title="" aria-label="Interactive line chart" id="datawrapper-chart-JDUUV" src="https://datawrapper.dwcdn.net/JDUUV/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="361" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();</script>
+			</div>
+		</div>
+		<div class="row insight" id="Production">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>More 80-140% AMI housing is needed to retain the workforce.</h4>
+				<p>With limited resources at the City’s disposal, it is important to match the current cost burden, expected household growth, and rates of out migration with the correct policy response. The City has many productive programs in place, including upzoning in TOD areas (IPD-T) and allowing residential in business districts and enabling ADUs.</p>			
+				<p>There is a need to adjust policies to promote housing for the workforce between 80-140% AMI, which is the predominant segment for out migration.</p>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p><img src="./images/charts/incentivizeworkforce.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></p>				
+			</div>
+		</div>
+		<div class="row section">
+			<div class="twelve columns center-align" style="margin-top: 2%">
+				<p>Read the full report:</p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank"><button>📄 Housing Needs Assessment</button></a></p>
+			</div>
+		</div>
+	</div>
 
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<iframe title="" aria-label="Interactive line chart" id="datawrapper-chart-JDUUV" src="https://datawrapper.dwcdn.net/JDUUV/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="361" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();
-				</script>
-			</div>
-			<div class="four columns" style="margin-top: 2%">
-				<p>Most outgoing households are middle-income, earning between 60% and 140% AMI.Projections based on past trends suggest relatively low growth in these income groups, especially when compared to households earning above 140%. However, these projections have this out-migration trend baked in and assume they will continue. If these households did not leave the island altogether, they would drive substantial middle-income household growth. 
-					Building more housing that meets these households’ needs and ability to pay could help stem the tide of out-migration.
-				</p>
-			</div>
-		</div>
-	</div>
-	<div>
+	<div class="divider" id="Strategies" style="background:linear-gradient(to right,rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 0.8)), url(images/theme/strategies-background.jpg); background-repeat: no-repeat; background-size: cover">
 		<div class="container">
-			<div class="row">
-				<div class="twelve columns" style="margin-top: 2%">
-					<h3>More 80-140% AMI housing is needed to retain the workforce.</h3>
-					<h5>With limited resources at the City’s disposal, it is important to match the current cost burden, expected household growth, and rates of out migration with the correct policy response.</h5>		
+			<div class="twelve columns center-align">
+				<div class="divider-header">
+					<div class="divider-icon">
+						<img src="images/theme/Results.svg" class="inline-image" title="Takeaways">
+					</div>
+					<h2 class="inline-text">Strategies</h2>
 				</div>
-			</div>	
-			<div class="row">
-				<div class="six columns" style="margin-top: 2%">
-					<p><img src="./images/incentivizeworkforce.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
-				</div>
-				<div class="six columns" style="margin-top: 2%">
-					<p>The City has many productive programs in place, including using LIHTC and upzoning in TOD areas (IPD-T) and allowing residential in business districts and enabling ADUs.
-						An adjustment is needed to promote housing for the workforces between 80-140% AMI, which is the predominant segment for out migration. </p>
+				<h5>The following section summarizes key strategies and recommendations from the Comprehensive Housing Plan.</h5>
+				<div class="chip-container">
+					<a href="#Goals"><button  class="button-primary">Goals</button></a>
+					<a href="#Policies"><button  class="button-primary">Policies</button></a>
+					<a href="#Development"><button  class="button-primary">Development</button></a>
+					<a href="#TOD"><button  class="button-primary">TOD</button></a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div>
-		<div class="container">
-			<div class="row">
-		<p><a href="" target="blank"><button>Housing needs assessment (PDF)</button></a></p>
+
+	<div id="Policy" class="container">
+		<div class="row section">
+			<div class="twelve columns center-align" style="margin-top: 2%">
+				<h3>Policy changes are needed to expand housing attainability for households at all income levels.</h3>
+			</div>
+		</div>
+		<div class="row insight" id="Goals">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>What we want to accomplish:</h4>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p><strong>Stem the flow of out-migration driven by Honolulu’s high housing costs and high cost of living.</strong> The outmigration threatens to deprive Honolulu of moderate-income households, who are the engine of Oahu’s economy.</p>
+				<p><strong>Increase opportunities for homeownership</strong> and homebuyers’ ability to build wealth through homeownership.</p>
+				<p><strong>Ensure the availability of housing for residents across the income spectrum.</strong></p>
+				<p><strong>Align infrastructure investment with housing development plans</strong> to make the most effective use of limited infrastructure funding and long implementation timeframes. </p>
+				<p><strong>Recognize the need to balance:</strong></p>
+				<li><strong>The City’s needs for property tax revenues</strong>to sustain vital services (e.g. police, fire, road maintenance, etc.) that benefit the community,</li>
+				<li><strong>The community's need for affordable housing,</strong> and</li>
+				<li><strong>Builders' need for project feasibility.</strong></li>
+			</div>
+		</div>
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>Strategy framework:</h4>
+				<p>The 2023 Housing Plan for the City and County of Honolulu laid out a pragmatic menu of strategies, some of which have already been accomplished, and others of which are currently being implemented.</p>
+				<p>The Comprehensive Housing Plan recommends that Honolulu continue to robustly implement current strategies. Additional strategies recommended here build on this work already underway.</p>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p><strong>Robustly implement current strategies.</strong></p>
+				<p><strong>Add new strategies to help the City’s housing programs better serve residents and accelerate development </strong>in appropriate locations:</p>
+				<li>Accelerate the pace of housing development.</li>
+				<li>Update affordable housing incentives and related policies.</li>
+				<li>Facilitate desired development types in appropriate locations.</li>
+				<li>Make more effective use of federal housing funds.</li>
+				<p><strong>Explore innovative strategies that have the potential for significant future impact.</strong></p>
+				<p><strong>Create an effective enabling environment for progress.</strong></p>
+			</div>
+		</div>
+		<div class="row insight" id="Policies">
+			<div class="twelve columns" style="margin-top: 2%">
+				<h4>The 5-year strategy will expand housing availability for all income levels:</h4>
+				<p><img src="./images/charts/sankey.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></p>				
+			</div>
+		</div>
+		<div class="row section">
+			<div class="twelve columns center-align" style="margin-top: 2%">
+				<p>Read the full report:</p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank"><button>📄 Strategies to Improve Housing Production</button></a></p>
+			</div>
+		</div>
+		<div class="row section">
+			<div class="twelve columns center-align" style="margin-top: 2%">
+				<h3>Housing development should be prioritized within and around TOD areas, with more limited, context-appropriate infill in outlying areas.</h3>
+			</div>
+		</div>
+		<div class="row insight" id="Developoment">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>78% of housing production is recommended to be contained in the three sustainable plan areas with light-rail access.</h4>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p><img src="./images/charts/allocationtable.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></p>
+				<figcaption><strong>TOD areas:</strong> Housing production is focused around new neighborhoods in Ewa and TOD Council’s infrastructure investments at East Kapolei, Stadium / Halawa, and Iwilei Center.</figcaption>
+				<figcaption><strong>Non-TOD sustainable communities:</strong> These communities currently have 23% of the overall housing, so the allocation is geared slightly towards the transit areas. Zoning changes that allow ADUs and infill housing within existing business districts provide sufficient capacity to meet these region’s housing production targets while also achieving their Sustainable Community Plan goals.</figcaption>
+			</div>
+		</div>
+		<div class="row insight" id="TOD">
+			<div class="twelve columns" style="margin-top: 2%">
+				<h4>Housing development should be concentrated within TOD areas.</h4>
+				<p>78% of the 5-year growth is allocated to the three sustainable area plans containing the transit-oriented development areas, while the remaining 22% is allocated to the more rural sustainable communities with an eye of smaller scale infill housing, retrofits and replacement, and supporting the workforce.</p>
+				<p><img src="./images/charts/blobdiagram.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></p>				
+			</div>
+		</div>
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h4>The current lack of density around transit stations represents a significant opportunity for achieving the community’s housing goals.</h4>
+				<p>The station areas include over 9 square miles of parcels within ½ mile, currently home to 32,064 units. The State’s TOD Council is currently focusing housing-supportive infrastructure efforts at: East Kapolei (1,000 units), Stadium / Halawa (2,000 units), and Iwilei Center (27,500 units).</p>			
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p><img src="./images/charts/todcapacity.png" height="auto" width="100%" title="CommunityScale" alt="CommunityScale"></p>				
+			</div>
+		</div>
+		<div class="row insight">
+			<div class="twelve columns" style="margin-top: 2%">
+				<h4>Explore areas with capacity for more housing.</h4>
+				<p>The interactive map below indicates areas in Honolulu with the potential for additional housing capacity, such as through ADU construction and zoning changes to allow residential in B1 and B2.</p>
+				<p>Highlighted areas indicate locations that should be considered for additional housing density, both near TOD corridors and in outlying districts. Turn on the "Permitted projects since 2020" layer to see where development and investment activity has been concentrated in recent years.</p>
+				<style>.embed-container {position: relative; padding-bottom: 40%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="1000" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="Honolulu capacity - v1" src="//communityscale.maps.arcgis.com/apps/Embed/index.html?webmap=4adda232d3f74b0f9fc181501d05192b&extent=-158.0915,21.287,-157.6898,21.5168&zoom=true&previewImage=false&scale=true&legendlayers=true&show_panel=true&disable_scroll=true&theme=light"></iframe></div>
 			</div>
 		</div>	
+		<div class="row section">
+			<div class="twelve columns center-align" style="margin-top: 2%">
+				<p>Read the full report:</p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank"><button>📄 Place-based Opportunities Analysis</button></a></p>
+			</div>
+		</div>
+		<div class="row insight">
+			<div class="six columns" style="margin-top: 2%">
+				<h2>Access the full Comprehensive Housing Plan:</h2>
+				<p>Thank you for reading this online summary of the Comprehensive Housing Plan. The links at right lead to the full set of reports and documents comprising the plan for further reading and reference.</p>
+			</div>
+			<div class="six columns" style="margin-top: 2%">
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Executive summary</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Housing needs assessment</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Affordable housing development barriers assessment</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Strategies to increase housing production</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Place-based opportunities and constraints</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Literature review</a></p>
+				<p><a href="https://docs.google.com/presentation/d/1RgziR0sq0CrdSUhm9lWpNB4xV_gJkDU1canw5z0JRwE/edit?usp=sharing" target="blank">📄 Map atlas</a></p>
+			</div>
+		</div>
 	</div>
-	<!-- Divider row -->
-	<div class="divider">
+
+	<div class="footer">
 		<div class="container">
-			<div class="Twelve columns">
-				<h2>Policy changes are needed to expand housing attainability for households at all income levels.</h2>
+			<div class="unresponsive" style="margin-bottom: 30px;">
+				<img src="./images/client/client-logo.png" height="auto" width="30px" title="Honolulu" alt="Honolulu">
+				<p><a href="https://Honolulu-ma.gov/departments/community_and_economic_development/index.php">Honolulu's Community and Economic Development Department</a> works to improve the quality of life for all in Honolulu by supporting the development of business, housing, and community.</p>
 			</div>
-		</div>
-	</div>
-
-	<div class="container"> 
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>What we want to accomplish.</h3>
-				<ul>
-					<li>Stem the flow of out-migration driven by Honolulu’s high housing costs and high cost of living. The outmigration threatens to deprive Honolulu of moderate-income households, who are the engine of Oahu’s economy.</li>
-					<li>Increase opportunities for homeownership and homebuyers’ ability to build wealth through homeownership.</li>
-					<li>Ensure the availability of housing for residents across the income spectrum.</li>
-					<li>Align infrastructure investment with housing development plans to make the most effective use of limited infrastructure funding and long implementation timeframes. </li>
-					<li>Recognize the need to balance:
-						<ul>
-							<li>
-								The City’s needs for property tax revenues to sustain vital services (e.g. police, fire, road maintenance, etc.) that benefit the community 
-							</li>
-							<li>
-								The community’s need for affordable housing and 
-							</li>
-							<li>
-								Builders’ need for project feasibility 
-							</li>
-						</ul>
-					</li>
-				</ul>	
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>The 5-year strategy will expand housing availability for all income levels.
-				</h3>
-				<p><img src="./images/sankey.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
-			</div>
-		</div>
-	</div>
-	<div>
-		<div class="container">
-			<div class="row">
-		<p><a href="" target="blank"><button>Strategies supporting document (PDF)</button></a></p>
-			</div>
-		</div>	
-	</div>
-	<!-- Divider row -->
-	<div class="divider">
-		<div class="container">
-			<div class="Twelve columns">
-				<h2>Housing development should be prioritized within and around TOD areas, with more limited, context-appropriate infill in outlying areas.</h2>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h3>78% of housing production is recommended to be contained in the three sustainable plan areas with light-rail access.</h3>
-				<h5>Housing development should be concentrated within TOD areas.</h5>
-				<p><img src="./images/blobdiagram.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
-				<p>78% of the 5-year growth is allocated to the three sustainable area plans containing the transit-oriented development areas, while the remaining 22% is allocated to the more rural sustainable communities with an eye of smaller scale infill housing, retrofits and replacement, and supporting the workforce. 
-				</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<h5>Regional housing allocation</h5>
-				<p><img src="./images/allocationtable.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
-			</div>
-			<div class="four columns" style="margin-top: 2%">
-				<p>TOD areas: Housing production is focused around new neighborhoods in Ewa and TOD Council’s infrastructure investments at East Kapolei, Stadium / Halawa, and Iwilei Center. </p>
-				<p>Non-TOD sustainable communities: These communities currently have 23% of the overall housing, so the allocation is geared slightly towards the transit areas. Zoning changes that allow ADUs and infill housing within existing business districts provide sufficient capacity to meet these region’s housing production targets while also achieving their Sustainable Community Plan goals.</p>
-			</div>
-		</div>
-	</div>	
-	<div class="container">
-		<div class="twelve columns" style="margin-top: 2%">
-			<h3>The current lack of density around transit stations represents a significant opportunity for achieving the community’s housing goals.</h3>
-		</div>
-		<div class="row">
-			<div class="eight columns" style="margin-top: 2%">
-				<p><img src="./images/toddensitymap.png" height=auto width=100% title="CommunityScale" alt="CommunityScale"></a></p>	
-			</div>
-			<div class="four columns" style="margin-top: 2%">
-				<p>The station areas include over 9 square miles of parcels within ½ mile, currently home to 32,064 units. The State’s TOD Council is currently focusing housing-supportive infrastructure efforts at:
-					East Kapolei (1,000 units), Stadium / Halawa (2,000 units), and Iwilei Center (27,500 units). </p>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="twelve columns" style="margin-top: 2%">
-				<h5>Use the map below to explore opportunities for added housing capacity.</h5>
-				<style>.embed-container {position: relative; padding-bottom: 40%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="1000" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="Honolulu capacity - v1" src="//communityscale.maps.arcgis.com/apps/Embed/index.html?webmap=4adda232d3f74b0f9fc181501d05192b&extent=-158.0915,21.287,-157.6898,21.5168&zoom=true&previewImage=false&scale=true&legendlayers=true&show_panel=true&disable_scroll=true&theme=light"></iframe></div>		</div>
-	</div>	
-
-	<div class="row">
-		<hr>
-	</div>
-
-	<div class="container">
-		<div class="unresponsive">
-			<div class="content-size"><a href="https://Honolulu.org/project/housing-planning/"><img src="./images/community.png" height=auto width=30px title="Honolulu" alt="Honolulu"></a></div>
-			<div class="fill-space">
-				<p class="small-text"><a href="https://Honolulu.org/project/housing-planning/">Honolulu Mayor’s Office of Housing</a> drives policy and strategy for housing islandwide. The office leads cross-sector collaboration and policy change to stimulate the acquisition, development, and preservation of housing for all of Oahu’s residents, including the creation of pathways from homelessness to housing.</p>
-			</div>
-		</div>
-
-		<div class="unresponsive">
-			<div class="content-size"><a href="http://communityscale.io"><img src="./images/CommunityScale-logo.png" height=auto width=30px title="CommunityScale" alt="CommunityScale"></a></div>
-			<div class="fill-space">
-				<p class="small-text"><a href="http://communityscale.io">CommunityScale</a> is a pioneering urban planning and spatial data analysis company serving clients across the United States. Follow CommunityScale on <a href="https://www.linkedin.com/company/communityscale">LinkedIn</a> and <a href="https://twitter.com/CommunityScale">Twitter/X</a>. This dashboard is <a href="https://github.com/CommunityScale/Greenfield">open source</a> MIT license.</p>
+	
+			<div class="unresponsive">
+				<img src="./images/theme/CommunityScale-logo.png" height="auto" width="30px" title="CommunityScale" alt="CommunityScale">
+				<p><a href="http://communityscale.io">CommunityScale</a> is a pioneering urban planning and spatial data analysis company serving clients across the United States. Follow CommunityScale on <a href="https://www.linkedin.com/company/communityscale">LinkedIn</a> and <a href="https://twitter.com/CommunityScale">Twitter/X</a>.<br>This dashboard is <a href="https://github.com/CommunityScale/Honolulu">open source</a> MIT license.</p>
 			</div>
 		</div>
 	</div>
 
 	<!-- End Document
-	  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
-
 </html>
